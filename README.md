@@ -7,6 +7,8 @@ Five asuras. A road full of Maya. One bow, one prince, and one very flammable te
 
 `single HTML file` · `zero dependencies` · `plays on desktop and phone` · `made for Vijayadashami`
 
+![Ravan, Meghnad and Kumbhakarna effigies catching fire at a night-time Dussehra mela, with string lights, a Ferris wheel and fireworks](docs/screenshots/01-ravan-dahan.png)
+
 **[▶ Play it in your browser](#play-it)**
 
 </div>
@@ -20,6 +22,19 @@ Shri Ram has to walk from the forests of Dandaka, across the Ram Setu, to the go
 Beat an asura and you don't just walk on. A **Dharma Prashna**, a question of dharma written on a palm-leaf manuscript, appears. Answer well and the path opens. Answer badly and *adharma returns when wisdom falters*: the asura climbs back out of the smoke at full health and you go again.
 
 Defeat all five, step through the gate, and the game hands you the remote. The finale is a cutscene: Ravan's arrogant speech, Ram's reply, the Brahmastra, and then the night of the mela, where three effigies go up in flames and fireworks.
+
+## A look around
+
+| | |
+| --- | --- |
+| ![Title screen: राम बाण in gold over a sunset forest with a rope-plank bridge](docs/screenshots/02-title.png) | ![Kumbhakarna's name card slams across the screen in golden Lanka](docs/screenshots/03-kumbhakarna.png) |
+| **The road to Lanka** starts at sunset. | **Kumbhakarna** wakes up. You'll wish he hadn't. |
+| ![Meghnad hovering on a storm cloud, casting serpent arrows at Ram](docs/screenshots/04-meghnad.png) | ![A palm-leaf manuscript asking what Vibhishan chose, with the right answer highlighted](docs/screenshots/05-dharma-prashna.png) |
+| **Meghnad** fights from the clouds. | Every victory ends in a **Dharma Prashna**. |
+| ![Ram standing on floating stones marked राम on a moonlit sea as makara fish leap](docs/screenshots/06-ram-setu.png) | ![Ten-headed Ravan towering over Ram on a burning battlefield, mid-speech](docs/screenshots/07-ravan.png) |
+| **The Ram Setu**: only some stones float. | *"Kneel, Raghava."* He did not kneel. |
+| ![Ram's Brahmastra streaking across the battlefield toward Ravan](docs/screenshots/08-brahmastra.png) | ![The three effigies burning at the mela](docs/screenshots/01-ravan-dahan.png) |
+| **The Brahmastra.** | **Ravan Dahan.** |
 
 ## Play it
 
@@ -130,8 +145,9 @@ Everything lives in one file, [`index.html`](index.html). No engine, no framewor
 
 ```
 ram-baan/
-├── index.html   # the entire game
-├── README.md    # you are here
+├── index.html          # the entire game
+├── docs/screenshots/   # the pictures above
+├── README.md           # you are here
 └── .gitignore
 ```
 
