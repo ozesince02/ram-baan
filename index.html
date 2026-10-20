@@ -373,11 +373,11 @@ const DEATH={
 const DEATH_TITLES=['MAYA!','AGAIN, RAGHAVA','NOT TODAY','TROLLED BY LANKA'];
 
 const BCFG={
-  maricha:{name:'MARICHA',sub:'THE DEER WAS MAYA ALL ALONG',tip:'JUMP LOW BLADES. DASH THROUGH HIGH ONES.',hp:8,speed:55,skin:'#3f9a7a',skinD:'#2a6a54',cloth:'#5a2a7a',clothD:'#3a1650',hair:'#14201a',horns:1,scale:1,knife:[1.2,1.9],kspeed:150,hi:0.25,reach:30,wind:0.5,specials:[],deer:1},
-  subahu:{name:'SUBAHU',sub:'DEFILER OF THE YAGNA',tip:'WATCH THE GROUND FOR FALLING FIRE.',hp:12,speed:60,skin:'#b8362e',skinD:'#80221c',cloth:'#2a2a2a',clothD:'#111',hair:'#1a0a0a',horns:1,scale:1,knife:[1.0,1.6],kspeed:170,hi:0.3,reach:30,wind:0.45,specials:['fireRain']},
-  khara:{name:'KHARA',sub:'FURY OF JANASTHANA',tip:'WHEN HE CHARGES, JUMP OR DASH.',hp:14,speed:80,skin:'#b5652a',skinD:'#7a3f17',cloth:'#1e3a6a',clothD:'#0f2040',hair:'#1a0f08',crown:1,scale:1,knife:[0.9,1.4],kspeed:200,hi:0.4,reach:32,wind:0.4,specials:['charge']},
-  kumbha:{name:'KUMBHAKARNA',sub:'THE GIANT WHO SLEPT SIX MONTHS',tip:'WAKE HIM WITH ARROWS. JUMP THE SHOCKWAVES.',hp:22,speed:35,skin:'#6e5848',skinD:'#4a3a2e',cloth:'#7a1a1a',clothD:'#4a0e0e',hair:'#120c08',crown:1,belly:1,scale:2,knife:[1.5,2.2],kspeed:150,hi:0,reach:34,wind:0.6,specials:['slam','boulder'],sleeper:1,weapon:'club'},
-  meghnad:{name:'MEGHNAD',sub:'INDRAJIT, MASTER OF MAYA',tip:'HE VANISHES. YOUR ARROWS WILL FIND HIM.',hp:16,speed:70,skin:'#5b3a8a',skinD:'#3a2260',cloth:'#c9952a',clothD:'#8a6418',hair:'#100818',crown:1,armor:1,scale:1,knife:[1.0,1.5],kspeed:170,hi:0,reach:30,wind:0.45,specials:['teleport','naga','dive'],float:1,cape:'#2a1050'},
+  maricha:{name:'MARICHA',sub:'THE DEER WAS MAYA ALL ALONG',tip:'JUMP LOW BLADES. DASH THROUGH HIGH ONES.',hp:14,speed:55,skin:'#3f9a7a',skinD:'#2a6a54',cloth:'#5a2a7a',clothD:'#3a1650',hair:'#14201a',horns:1,scale:1,knife:[1.2,1.9],kspeed:150,hi:0.25,reach:30,wind:0.5,specials:[],deer:1},
+  subahu:{name:'SUBAHU',sub:'DEFILER OF THE YAGNA',tip:'WATCH THE GROUND FOR FALLING FIRE.',hp:22,speed:60,skin:'#b8362e',skinD:'#80221c',cloth:'#2a2a2a',clothD:'#111',hair:'#1a0a0a',horns:1,scale:1,knife:[1.0,1.6],kspeed:170,hi:0.3,reach:30,wind:0.45,specials:['fireRain']},
+  khara:{name:'KHARA',sub:'FURY OF JANASTHANA',tip:'WHEN HE CHARGES, JUMP OR DASH.',hp:26,speed:80,skin:'#b5652a',skinD:'#7a3f17',cloth:'#1e3a6a',clothD:'#0f2040',hair:'#1a0f08',crown:1,scale:1,knife:[0.9,1.4],kspeed:200,hi:0.4,reach:32,wind:0.4,specials:['charge']},
+  kumbha:{name:'KUMBHAKARNA',sub:'THE GIANT WHO SLEPT SIX MONTHS',tip:'WAKE HIM WITH ARROWS. JUMP THE SHOCKWAVES.',hp:40,speed:35,skin:'#6e5848',skinD:'#4a3a2e',cloth:'#7a1a1a',clothD:'#4a0e0e',hair:'#120c08',crown:1,belly:1,scale:2,knife:[1.5,2.2],kspeed:150,hi:0,reach:34,wind:0.6,specials:['slam','boulder'],sleeper:1,weapon:'club'},
+  meghnad:{name:'MEGHNAD',sub:'INDRAJIT, MASTER OF MAYA',tip:'HE VANISHES. YOUR ARROWS WILL FIND HIM.',hp:30,speed:70,skin:'#5b3a8a',skinD:'#3a2260',cloth:'#c9952a',clothD:'#8a6418',hair:'#100818',crown:1,armor:1,scale:1,knife:[1.0,1.5],kspeed:170,hi:0,reach:30,wind:0.45,specials:['teleport','naga','dive'],float:1,cape:'#2a1050'},
 };
 const RAVAN={skin:'#a8443a',skinD:'#702a22',cloth:'#3a1650',clothD:'#24103a',hair:'#100808',crown:1,armor:1,cape:'#8a1020',heads:9,scale:3};
 const HEADORDER=[-1,1,-2,2,-3,3,-4,4,-5];
@@ -438,7 +438,7 @@ const FIRE=['#fff7c2','#ffe066','#ffb02e','#ff7a1a','#e8401a','#8a2a1a','#3a2222
 function addP(o){if(parts.length>1600)return;parts.push(Object.assign({x:0,y:0,vx:0,vy:0,g:0,life:1,max:1,size:1,col:'#fff',glow:0,drag:0},o,{max:o.life||1}))}
 function burst(x,y,n,cols,sp=80,o={}){for(let i=0;i<n;i++){const a=rnd(6.283),v=rnd(sp*0.3,sp);addP(Object.assign({x,y,vx:Math.cos(a)*v,vy:Math.sin(a)*v,life:rnd(0.3,0.8),col:pick(cols),size:1+(Math.random()<0.3?1:0),drag:2},o))}}
 function dust(x,y,n=6){for(let i=0;i<n;i++)addP({x:x+rnd(-4,4),y:y-1,vx:rnd(-30,30),vy:rnd(-30,-5),life:rnd(0.25,0.5),col:pick(['#c9a27a','#a8845e','#e0c49a']),drag:3})}
-function fireP(x,y,s=1){addP({x:x+rnd(-2,2),y,vx:rnd(-10,10)*s,vy:rnd(-60,-25)*s,life:rnd(0.4,0.9),fire:1,size:Math.random()<0.4?2:1,glow:3*s,drag:0.5})}
+function fireP(x,y,s=1,big){if(big){addP({x:x+rnd(-2,2),y,vx:rnd(-8,8),vy:rnd(-50,-22)*s,life:rnd(0.5,1),fire:1,fo:1,size:Math.random()<0.5?3:2,glow:Math.random()<0.25?2.5:0,drag:0.5});return}addP({x:x+rnd(-2,2),y,vx:rnd(-10,10)*s,vy:rnd(-60,-25)*s,life:rnd(0.4,0.9),fire:1,size:Math.random()<0.4?2:1,glow:3*s,drag:0.5})}
 function updateParts(dt){
   for(const p of parts){p.life-=dt;if(p.drag)p.vx*=Math.max(0,1-p.drag*dt),p.vy*=Math.max(0,1-p.drag*dt*0.5);p.vy+=p.g*dt;p.x+=p.vx*dt;p.y+=p.vy*dt;if(p.sw)p.x+=Math.sin(T*3+p.ph)*p.sw*dt;if(p.trail&&Math.random()<0.6)addP({x:p.x,y:p.y,life:0.35,col:p.col,glow:1.5})}
   parts=parts.filter(p=>p.life>0);
@@ -448,7 +448,7 @@ function updateParts(dt){
 function drawParts(){
   for(const p of parts){
     const k=1-p.life/p.max;let col=p.col;
-    if(p.fire)col=FIRE[Math.min(FIRE.length-1,k*FIRE.length|0)];
+    if(p.fire)col=FIRE[Math.min(FIRE.length-1,(k*FIRE.length|0)+(p.fo||0))];
     ctx.globalAlpha=p.fade?Math.min(1,p.life/p.max*2):1;
     ctx.fillStyle=col;const s=p.fire&&k>0.6?p.size+1:p.size;ctx.fillRect(Math.round(p.x),Math.round(p.y),s,s);
     if(p.glow&&(!p.fire||k<0.6))glowAt(p.x,p.y,p.glow,col,0.7*(1-k));
@@ -548,7 +548,7 @@ function updatePlayer(dt){
   }
   for(const g of p.trail)g.a-=dt*4;p.trail=p.trail.filter(g=>g.a>0);
   // bow
-  if(inp.pressed.s){if(p.shootCD<=0){fireArrow(false);p.shootCD=0.3}p.charging=true;p.charge=0;p.ready=false}
+  if(inp.pressed.s){if(p.shootCD<=0){fireArrow(false);p.shootCD=0.38}p.charging=true;p.charge=0;p.ready=false}
   if(p.charging){
     if(Hd.s){p.charge+=dt;if(p.charge>=0.6&&!p.ready){p.ready=true;SFX.ready();burst(p.x+p.w/2+p.face*12,p.y+8,8,['#ffcf4a','#fff'],50,{glow:2})}}
     else{if(p.charge>=0.6)fireArrow(true);p.charging=false;p.charge=0;p.ready=false}
@@ -1010,8 +1010,8 @@ function updateMela(s,dt){
     if(at(5.5)||at(6))SFX.boom();
     if(at(4)||at(8))SFX.cheer();
     // fire on effigies
-    for(const e of E){if(e.burn>0&&e.col<0.95){const d=EFF[e.kind],n=Math.ceil(4*e.burn*(1-e.col));for(let i=0;i<n;i++){const by=184-d.h*e.burn*rnd(0.2,1)-e.col*e.col*60;fireP(e.x+rnd(-d.w*0.32,d.w*0.32),by,1.4)}
-      if(e.burn>0.2&&Math.random()<dt*8){const y=184-d.h*e.burn*rnd(0.3,1);burst(e.x+rnd(-d.w*0.3,d.w*0.3),y,10,['#fff','#ffe066','#7dff6a','#ff4f8b'],90,{glow:1.5,life:0.4});if(Math.random()<0.3)SFX.crackle()}}
+    for(const e of E){if(e.burn>0&&e.col<0.95){const d=EFF[e.kind],n=Math.ceil(2.5*e.burn*(1-e.col));for(let i=0;i<n;i++){const by=184-d.h*e.burn*rnd(0.2,1)-e.col*e.col*60;fireP(e.x+rnd(-d.w*0.32,d.w*0.32),by,1.3,true)}
+      if(e.burn>0.2&&Math.random()<dt*8){const y=184-d.h*e.burn*rnd(0.3,1);burst(e.x+rnd(-d.w*0.3,d.w*0.3),y,7,['#fff','#ffe066','#7dff6a','#ff4f8b'],90,{glow:1,life:0.4});if(Math.random()<0.3)SFX.crackle()}}
       if(e.col>0.4&&e.col<1&&Math.random()<0.3)addP({x:e.x+rnd(-20,20),y:184-rnd(0,40),vx:rnd(-10,10),vy:rnd(-30,-10),life:2,col:'#4a3a3a',size:3,fade:1})}
     if(tt>2&&Math.random()<dt*(s.id==='end'?1.6:2.4))launchFirework();
   }
