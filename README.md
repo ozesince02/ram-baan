@@ -46,6 +46,9 @@ Then open <http://localhost:8000>.
 | **Divine arrow** (3× damage) | hold `J` until it sparkles, release | hold BOW |
 | Answer a Dharma Prashna | `1` `2` `3` | tap |
 | Pause / mute | `Esc` / `M` | top-right buttons |
+| Full screen | FULL SCREEN button | FULL SCREEN button (Android; iPhones don't allow it) |
+
+**On phones:** play in landscape. Hold your phone in portrait and the game pauses with a "turn your phone" screen. Rotate, and it picks up where you were. If you really want to, you can still tap *Play in portrait anyway*. Tablets get bigger buttons and work in either orientation.
 
 Arrows home in on the asura you're facing, because Ram doesn't miss. You still have to survive long enough to let go of the string.
 

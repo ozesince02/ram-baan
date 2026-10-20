@@ -91,6 +91,13 @@ kbd{font-family:var(--f-pixel);font-size:8px;color:var(--mist);background:#2c1b3
 .tb{width:60px;height:60px;border-radius:50%;border:2px solid rgba(255,220,160,.55);background:rgba(30,14,30,.45);color:var(--mist);font-family:var(--f-pixel);font-size:8px;touch-action:none;padding:0}
 .tb.big{width:72px;height:72px;font-size:9px}
 .tb.on{background:rgba(255,160,60,.6)}
+@media (pointer:coarse) and (min-width:600px) and (min-height:600px){.tb{width:84px;height:84px;font-size:10px}.tb.big{width:100px;height:100px;font-size:11px}.pad{gap:16px}#touch{padding:18px 24px 22px}.ib{font-size:10px;padding:10px 12px}}
+@media (pointer:coarse) and (max-width:440px){.tb{width:50px;height:50px;font-size:7px}.tb.big{width:58px;height:58px;font-size:8px}.pad{gap:6px}#touch{padding:8px 8px 12px}}
+#rotate{background:rgba(8,3,10,.92);z-index:5}
+.phone{width:44px;height:76px;border:4px solid var(--gold);border-radius:9px;position:relative;margin:6px auto 4px;animation:turn 2.4s ease-in-out infinite}
+.phone::after{content:"";position:absolute;left:50%;bottom:5px;width:8px;height:3px;margin-left:-4px;border-radius:2px;background:var(--gold)}
+@keyframes turn{0%,20%{transform:rotate(0)}50%,80%{transform:rotate(-90deg)}100%{transform:rotate(0)}}
+@media (prefers-reduced-motion:reduce){.phone{animation:none;transform:rotate(-90deg)}}
 @media (max-height:420px){.card{gap:8px}.deva{font-size:40px}.keys{display:none}}
 @media (prefers-reduced-motion:reduce){#dialog .tap{animation:none}}
 </style>
@@ -150,8 +157,18 @@ kbd{font-family:var(--f-pixel);font-size:8px;color:var(--mist);background:#2c1b3
       </div>
     </div>
 
+    <div id="rotate" class="overlay" hidden>
+      <div class="card">
+        <div class="phone" aria-hidden="true"></div>
+        <h1>TURN YOUR PHONE</h1>
+        <p class="sub">Ram Baan is made for landscape. Rotate your phone sideways and the game carries on from where you are.</p>
+        <div class="row"><button class="btn ghost" id="portraitBtn">PLAY IN PORTRAIT ANYWAY</button></div>
+      </div>
+    </div>
+
     <div id="topbar">
       <button class="ib" id="skipBtn" hidden>SKIP ▸▸</button>
+      <button class="ib" id="fsBtn" hidden aria-label="Full screen">FULL SCREEN</button>
       <button class="ib" id="pauseBtn" hidden aria-label="Pause">II</button>
       <button class="ib" id="muteBtn" aria-label="Mute sound">SOUND ON</button>
     </div>
@@ -414,7 +431,7 @@ function resetGame(){
   L=buildLevel();P=newPlayer(L.cps[0].x);cpIndex=0;L.cps[0].lit=true;boss=null;curArena=null;
   arrows=[];eproj=[];parts=[];floaters=[];deaths=0;playTime=0;correct=0;asked=0;cam.x=0;msg=null;nameCard=null;quiz=null;cut=null;
 }
-function setState(s){state=s;app.dataset.state=s;$('pauseBtn').hidden=s!=='play';$('skipBtn').hidden=s!=='cut'}
+function setState(s){state=s;app.dataset.state=s;$('pauseBtn').hidden=s!=='play';$('skipBtn').hidden=s!=='cut';if(typeof checkRotate==='function')checkRotate()}
 
 /* ============================== particles ============================== */
 const FIRE=['#fff7c2','#ffe066','#ffb02e','#ff7a1a','#e8401a','#8a2a1a','#3a2222'];
@@ -1524,7 +1541,8 @@ const view={s:1,ox:0,oy:0};
 function resize(){
   const r=cv.getBoundingClientRect(),dpr=Math.min(2,window.devicePixelRatio||1);
   cv.width=Math.max(1,Math.round(r.width*dpr));cv.height=Math.max(1,Math.round(r.height*dpr));
-  const s=Math.min(cv.width/W,cv.height/H);view.s=s;view.ox=Math.round((cv.width-W*s)/2);view.oy=Math.round((cv.height-H*s)/2);
+  const s=Math.min(cv.width/W,cv.height/H);view.s=s;view.ox=Math.round((cv.width-W*s)/2);view.oy=Math.round((cv.height-H*s)*(TOUCH&&cv.height>cv.width?0.3:0.5));
+  checkRotate();
 }
 addEventListener('resize',resize);
 function render(){
@@ -1548,7 +1566,7 @@ function frame(now){
   try{render()}catch(e){console.error(e)}
 }
 function tick(dt){
-  if(!paused){
+  if(!paused&&!rotateHold){
     T+=dt;
     if(hitstop>0){hitstop-=dt}
     else{
@@ -1574,11 +1592,34 @@ function togglePause(){
   if(state!=='play')return;paused=!paused;$('pause').hidden=!paused;
   if(paused){for(const k in inp.held)release(k);$('resumeBtn').focus({preventScroll:true});if(AC)AC.suspend()}else{audioInit()}
 }
+let rotateHold=false,portraitOk=false;
+function checkRotate(){
+  const portrait=window.innerHeight>window.innerWidth;
+  const small=Math.min(window.innerWidth,window.innerHeight)<600;
+  const show=TOUCH&&portrait&&small&&!portraitOk&&state!=='title'&&state!=='end';
+  rotateHold=show;$('rotate').hidden=!show;
+  if(show)for(const k in inp.held)release(k);
+}
+const fsEl=document.documentElement;
+const fsOn=()=>document.fullscreenElement||document.webkitFullscreenElement;
+const fsAvail=!!(document.fullscreenEnabled||document.webkitFullscreenEnabled);
+function toggleFullscreen(){
+  try{
+    if(fsOn()){(document.exitFullscreen||document.webkitExitFullscreen).call(document)}
+    else{const r=(fsEl.requestFullscreen||fsEl.webkitRequestFullscreen).call(fsEl);
+      if(r&&r.then)r.then(()=>{if(TOUCH&&screen.orientation&&screen.orientation.lock)screen.orientation.lock('landscape').catch(()=>{})}).catch(()=>{})}
+  }catch(e){}
+}
+function fsLabel(){$('fsBtn').textContent=fsOn()?'EXIT FULL SCREEN':'FULL SCREEN';setTimeout(resize,60)}
+document.addEventListener('fullscreenchange',fsLabel);document.addEventListener('webkitfullscreenchange',fsLabel);
+addEventListener('orientationchange',()=>setTimeout(resize,150));
 function toggleMute(){muted=!muted;if(master)master.gain.value=muted?0:0.9;$('muteBtn').textContent=muted?'SOUND OFF':'SOUND ON'}
 $('startBtn').addEventListener('click',startGame);
 $('resumeBtn').addEventListener('click',togglePause);
 $('restartBtn').addEventListener('click',()=>{paused=false;startGame()});
 $('pauseBtn').addEventListener('click',togglePause);
+$('fsBtn').hidden=!fsAvail;$('fsBtn').addEventListener('click',toggleFullscreen);
+$('portraitBtn').addEventListener('click',()=>{portraitOk=true;checkRotate()});
 $('muteBtn').addEventListener('click',()=>{audioInit();toggleMute();if(!muted&&!AC)audioInit()});
 $('skipBtn').addEventListener('click',skipCut);
 $('againBtn').addEventListener('click',startGame);
