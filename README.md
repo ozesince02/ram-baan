@@ -9,7 +9,7 @@ Five asuras. A road full of Maya. One bow, one prince, and one very flammable te
 
 ![Ravan, Meghnad and Kumbhakarna effigies catching fire at a night-time Dussehra mela, with string lights, a Ferris wheel and fireworks](docs/screenshots/01-ravan-dahan.png)
 
-**[▶ Play it in your browser](#play-it)**
+**[▶ Play it in your browser](https://ozesince02.github.io/ram-baan/)**
 
 </div>
 
@@ -38,7 +38,7 @@ Defeat all five, step through the gate, and the game hands you the remote. The f
 
 ## Play it
 
-**Online:** <!-- PLAY_URL --> once GitHub Pages is switched on for this repo (Settings → Pages → Deploy from branch → `main` / root).
+**Online:** **[ozesince02.github.io/ram-baan](https://ozesince02.github.io/ram-baan/)**. It works on phones (landscape is best), tablets and laptops, with nothing to install.
 
 **Locally:** download `index.html` and double-click it. That's the whole game. No build, no install, no `node_modules` the size of Lanka.
 
